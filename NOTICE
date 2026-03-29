@@ -1,0 +1,15 @@
+This project is a fork of:
+https://github.com/Jamesbarford/holyc-lang
+
+License:
+- BSD 2-Clause (see COPYING)
+
+Copyright:
+- Original project code: James W M Barford-Evans
+- Fork modifications: Reuben Percival
+
+Redistribution requirements:
+1. Source redistributions must retain the copyright notice, conditions, and disclaimer.
+2. Binary redistributions must reproduce the copyright notice, conditions, and disclaimer in accompanying documentation/materials.
+
+This NOTICE file is informational and does not replace the license text in COPYING.
