@@ -24,6 +24,13 @@ Main;
 Full documentation for the language and this compiler can be found here: 
 https://holyc-lang.com/
 
+Local repository docs are available in [`./docs`](./docs/README.md):
+- [Getting Started](./docs/getting-started.md)
+- [CLI Reference](./docs/cli-reference.md)
+- [Testing](./docs/testing.md)
+- [Compiler Architecture](./docs/compiler-architecture.md)
+- [Language Guide](./docs/language-guide.md)
+
 ## Introduction
 A holyc compiler built from scratch in C. Currently it is non optimising,
 walking the AST and compiling it directly to x86_64 assembly code as text which 
