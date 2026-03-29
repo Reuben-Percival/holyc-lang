@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
+#include <inttypes.h>
 
 #include "aostr.h"
 #include "ir-debug.h"
@@ -264,9 +265,9 @@ void aarch64EmitFunction(AArch64Ctx *ctx, IrFunction *func) {
         stack_offset -= var->size;
     }
 
-    char buf[4];
+    char buf[32];
     for (u64 i = 0; i < func->params->size; ++i) {
-        snprintf(buf, sizeof(buf), "x%llu", i);
+        snprintf(buf, sizeof(buf), "x%" PRIu64, i);
         IrValue *param = func->params->entries[i];
         aarch64GenStore(ctx, param, buf);
     }

@@ -1,5 +1,6 @@
 #include <assert.h>
 #include <errno.h>
+#include <inttypes.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -557,7 +558,7 @@ static void cfgCreatePicture(CfgGraphVizBuilder *builder, CFG *cfg) {
 }
 
 static void cfgGraphVizAddMappings(CfgGraphVizBuilder *builder, CFG *cfg) {
-    loggerDebug("Creating mappings for: %s, size: %llu\n",
+    loggerDebug("Creating mappings for: %s, size: %" PRIu64 "\n",
             cfg->ref_fname->data,cfg->no_to_block->size);
     MapIter it;
     mapIterInit(cfg->no_to_block, &it);
@@ -662,7 +663,7 @@ static void cfgGraphVizAddMappings(CfgGraphVizBuilder *builder, CFG *cfg) {
                 break;
 
             default:
-                loggerWarning("Unhandled! loopidx=%llu: bb%d %s\n",
+                loggerWarning("Unhandled! loopidx=%" PRIu64 ": bb%d %s\n",
                     it.idx,cur->block_no,bbToString(cur));
         }
     }

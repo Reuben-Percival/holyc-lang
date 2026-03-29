@@ -1,5 +1,6 @@
 #include <assert.h>
 #include <ctype.h>
+#include <inttypes.h>
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -842,7 +843,7 @@ void cctrlTokenExpect(Cctrl *cc, s64 expected) {
     Lexeme *tok = cctrlTokenGet(cc);
     if (!tokenPunctIs(tok, expected)) {
         if (!tok) {
-            loggerPanic("line %lld: Ran out of tokens\n",cc->lineno);
+            loggerPanic("line %" PRId64 ": Ran out of tokens\n",cc->lineno);
         } else {
             cctrlRewindUntilStrMatch(cc,tok->start,tok->len,NULL);
             cctrlTokenRewind(cc);

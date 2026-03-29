@@ -1,5 +1,6 @@
 #include <errno.h>
 #include <fcntl.h>
+#include <inttypes.h>
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -178,7 +179,7 @@ void emitFile(AoStr *asmbuf, CliArgs *args) {
         }
         s64 written = write(fd,asmbuf->data,asmbuf->len);
         if (written != (s64)asmbuf->len) {
-            loggerPanic("Failed to write data expected %lld got %lld\n",
+            loggerPanic("Failed to write data expected %" PRId64 " got %" PRId64 "\n",
                     (s64)asmbuf->len, written);
         }
         close(fd);

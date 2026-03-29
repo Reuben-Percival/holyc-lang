@@ -1,4 +1,5 @@
 #include <ctype.h>
+#include <inttypes.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -367,9 +368,9 @@ char *transpileKeyWordHighlight(TranspileCtx *ctx, int ast_kind) {
 char *transpileHighlightInt(TranspileCtx *ctx, s64 integer) {
     static char buf[64];
     if (ctx->flags & TRANSPILE_FLAG_ISATTY) {
-        snprintf(buf,sizeof(buf),ESC_WHITE"%lld"ESC_RESET,integer);
+        snprintf(buf,sizeof(buf),ESC_WHITE"%" PRId64 ESC_RESET,integer);
     } else {
-        snprintf(buf,sizeof(buf),"%lld",integer);
+        snprintf(buf,sizeof(buf),"%" PRId64,integer);
     }
     return buf;
 }

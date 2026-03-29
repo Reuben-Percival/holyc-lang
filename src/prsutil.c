@@ -1,3 +1,4 @@
+#include <inttypes.h>
 #include <string.h>
 #include "aostr.h"
 #include "ast.h"
@@ -48,28 +49,28 @@ int parseIsFunctionCall(Ast *ast) {
 
 void assertIsFloat(Ast *ast, s64 lineno) {
     if (ast && !astIsFloatType(ast->type)) {
-        loggerPanic("line %lld: Expected float type got %s\n",
+        loggerPanic("line %" PRId64 ": Expected float type got %s\n",
                 lineno,astTypeToString(ast->type));
     }
 }
 
 void assertIsInt(Ast *ast, s64 lineno) {
     if (ast && !astIsIntType(ast->type)) {
-        loggerPanic("line %lld: Expected int type got %s\n",
+        loggerPanic("line %" PRId64 ": Expected int type got %s\n",
                 lineno, astTypeToString(ast->type));
     }
 }
 
 void assertIsFloatOrInt(Ast *ast, s64 lineno) {
     if (!parseIsFloatOrInt(ast)) {
-        loggerPanic("line %lld: Expected float got %s\n",
+        loggerPanic("line %" PRId64 ": Expected float got %s\n",
                 lineno, astTypeToString(ast->type));
     }
 }
 
 void assertIsPointer(Ast *ast, s64 lineno) {
     if (!ast || ast->type->kind != AST_TYPE_POINTER) {
-        loggerPanic("line %lld: Expected float got %s\n",
+        loggerPanic("line %" PRId64 ": Expected float got %s\n",
                 lineno,astTypeToString(ast->type));
     }
 }
@@ -474,9 +475,9 @@ void assertUniqueSwitchCaseLabels(Vec *case_vector, Ast *case_) {
             for (u64 j = 0; j < case_vector->size; ++j) {
                 astPrint(case_vector->entries[i]);
             }
-            loggerPanic("Duplicate case value: %lld\n",case_->case_begin);
+            loggerPanic("Duplicate case value: %" PRId64 "\n",case_->case_begin);
         }
-        loggerPanic("Duplicate case value: %lld\n",case_->case_begin);
+        loggerPanic("Duplicate case value: %" PRId64 "\n",case_->case_begin);
     }
 }
 
