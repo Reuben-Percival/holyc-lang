@@ -249,6 +249,7 @@ void asmPop(AoStr *buf, char *reg) {
 void asmCall(AoStr *buf, char *fname) {
     char *_fname = asmNormaliseFunctionName(fname);
     aoStrCatPrintf(buf,"call   %s\n\t", _fname);
+
 }
 
 /* Save a global variable */
@@ -844,6 +845,7 @@ void asmAddr(Cctrl *cc, AoStr *buf, Ast *ast) {
         case AST_FUNC: {
             char *normalised = asmNormaliseFunctionName(ast->operand->fname->data);
             aoStrCatPrintf(buf, "leaq   %s(%%rip), %%rax\n\t", normalised);
+
             break;
         }
 
@@ -1140,6 +1142,7 @@ void asmBinOpFunctionAssign(Cctrl *cc, AoStr *buf, Ast *fnptr, Ast *fn) {
                     "movq    %%rax, %d(%%rbp)\n\t",
                     normalised,
                     fnptr->loff);
+
             break;
         }
 
@@ -2380,6 +2383,7 @@ int asmFunctionInit(Cctrl *cc, AoStr *buf, Ast *func) {
                         "movq   %%rsp, %%rbp" "\n\t",
                         fname,
                         fname);
+
 
     int new_offset = 0, alignment = 0;
     /* Now assign offsets */

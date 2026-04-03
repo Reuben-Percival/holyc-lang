@@ -771,7 +771,7 @@ AoStr *astNormaliseFunctionName(char *fname) {
         aoStrPutChar(newfn, '_');
     }
 #endif
-    aoStrCatPrintf(newfn, fname);
+    aoStrCatPrintf(newfn, "%s", fname);
     /* XXX: Dynamically create main function */
     return newfn;
 }

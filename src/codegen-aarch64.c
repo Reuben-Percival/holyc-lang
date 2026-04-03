@@ -61,7 +61,7 @@ u32 aarch64GetFreeReg(AArch64Ctx *ctx) {
 } 
 
 int alignTo(int value, int alignment) {
-    return (value + alignment) & ~alignment;
+    return (value + (alignment - 1)) & ~(alignment - 1);
 }
 
 void aarch64GenStore(AArch64Ctx *ctx, IrValue *dest, char *reg) {

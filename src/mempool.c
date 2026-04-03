@@ -384,14 +384,22 @@ void memPoolIteratorRelease(MemPoolIterator *it) {
 }
 
 void *memPoolNext(MemPoolIterator *it) {
-    /* If the chunk is free or there is no chunk because we are at the end 
-     * of a list, we need a new segment or are finished iterating */
-    if (it->chunk == NULL || it->chunk->free) {
-        it->segment_id++;
-        if (it->segment_id >= it->pool->segment_count) {
-            return NULL;
+    /* Skip free chunks and exhausted segments until we find an allocated
+     * chunk or run out of segments entirely */
+    for (;;) {
+        if (it->chunk == NULL) {
+            /* End of current segment — advance to the next one */
+            it->segment_id++;
+            if (it->segment_id >= it->pool->segment_count) {
+                return NULL;
+            }
+            it->chunk = it->pool->segments[it->segment_id]->list;
+        } else if (it->chunk->free) {
+            /* Free chunk within the current segment — skip it in-place */
+            it->chunk = it->chunk->next;
+        } else {
+            break;
         }
-        it->chunk = it->pool->segments[it->segment_id]->list;
     }
 
     void *ptr = (void *)((u8 *)it->chunk + sizeof(MemChunk));

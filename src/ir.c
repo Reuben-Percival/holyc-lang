@@ -888,14 +888,6 @@ void irLowerAst(IrCtx *ctx, Ast *ast) {
 }
 
 void irSimplifyFunction(IrFunction *fn) {
-    Set *work_queue_ids = setNew(16, &set_uint_type);
-    List *queue = listNew();
-    Set *blocks_to_delete = setNew(16, &set_int_type);
-
-    (void)work_queue_ids;
-    (void)queue;
-    (void)blocks_to_delete;
-
     /* Any blocks that don't have a successor lets assume they jump to 
      * the return */
     listForEach(fn->blocks) {

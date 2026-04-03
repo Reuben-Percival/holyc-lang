@@ -87,6 +87,18 @@ MapType map_int_to_int_set_type = {
 
 void cfgBuilderRelease(CFGBuilder *builder, int free_builder) {
     if (builder) {
+        if (builder->block_pool) {
+            memPoolRelease(builder->block_pool, 1);
+            builder->block_pool = NULL;
+        }
+        if (builder->unresolved_gotos) {
+            listRelease(builder->unresolved_gotos, NULL);
+            builder->unresolved_gotos = NULL;
+        }
+        if (builder->resolved_labels) {
+            mapRelease(builder->resolved_labels);
+            builder->resolved_labels = NULL;
+        }
         if (free_builder) {
             free(builder);
         }
