@@ -136,7 +136,7 @@ static void cctrlAddBuiltinMacros(Cctrl *cc) {
             ptm->tm_year+1900,
             ptm->tm_mon+1,ptm->tm_mday,ptm->tm_hour,
             ptm->tm_min,ptm->tm_sec);
-    date[len] = '\0';
+    time_stamp[len] = '\0';
     le = lexemeNew(time_stamp,len);
     le->tk_type = TK_STR;
     mapAdd(cc->macro_defs,"__TIMESTAMP__",le);
@@ -146,7 +146,8 @@ static void cctrlAddBuiltinMacros(Cctrl *cc) {
     mapAdd(cc->macro_defs,"__HCC_LINK_SQLITE3__",le);
 #endif
 
-    le = lexemeNew((char *)cctrlGetVersion(),len);
+    const char *ver = cctrlGetVersion();
+    le = lexemeNew((char *)ver, (s64)strlen(ver));
     le->tk_type = TK_STR;
     mapAdd(cc->macro_defs,"__HCC_VERSION__",le);
 }

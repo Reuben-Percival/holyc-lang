@@ -928,7 +928,7 @@ void transpileAstInternal(Ast *ast, TranspileCtx *ctx, s64 *indent) {
 
     /* XXX: fix labels */
     case AST_LABEL: {
-        char *label = ast->slabel ? ast->slabel->data : ast->slabel->data;
+        char *label = ast->slabel ? ast->slabel->data : ast->sval->data;
         while (buf->data[buf->len - 1] != '\n') {
             buf->len--;
         }

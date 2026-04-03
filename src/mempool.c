@@ -110,8 +110,15 @@ static MemSegment *memSegmentAlloc(u32 capacity,
                                    u32 segment_id)
 {
     MemSegment *segment = (MemSegment *)malloc(sizeof(MemSegment));
+    if (!segment) {
+        loggerPanic("Failed to allocate memory segment\n");
+    }
     segment->allocated = 0;
     segment->buffer = (void *)malloc(capacity);
+    if (!segment->buffer) {
+        free(segment);
+        loggerPanic("Failed to allocate segment buffer (capacity=%u)\n", capacity);
+    }
     segment->list = (MemChunk *)segment->buffer;
     segment->list->next = NULL;
     segment->list->free = 1;

@@ -317,7 +317,7 @@ static u64 setGetCStringNextIdx(Set *set,
     while (cur->occupied) {
         if (cur->key_len == key_len && !memcmp(cur->key, key, key_len)) {
             *_is_free = 0;
-            break;
+            return idx;
         }
         idx = (idx + 1) & set->mask;
         cur = &set->entries[idx];

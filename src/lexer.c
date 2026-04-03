@@ -581,18 +581,21 @@ char *lexReadfile(char *path, s64 *_len) {
         loggerPanic("Failed to open file: %s\n", path);
     }
  
-    int len = lseek(fd, 0, SEEK_END);
+    ssize_t len = lseek(fd, 0, SEEK_END);
+    if (len == -1) {
+        loggerPanic("Failed to get file size: %s\n", path);
+    }
     lseek(fd, 0, SEEK_SET);
 
     /* Add a `+1` for `\0` */
     char *buf = (char *)malloc((sizeof(char) * len)+1);
-    int size = 0;
-    int rbytes = 0;
-    while ((rbytes = read(fd,buf,len)) != 0) {
+    ssize_t size = 0;
+    ssize_t rbytes = 0;
+    while (size < len && (rbytes = read(fd, buf + size, len - size)) > 0) {
         size += rbytes;
     }
 
-    if (size != len) {
+    if (rbytes == -1 || size != len) {
         loggerPanic("Failed to read whole file\n");
     }
 
